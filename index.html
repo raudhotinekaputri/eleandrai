@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kazuha-Inspired Mini Game</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- LOADING -->
+  <div id="loading">
+    <img src="img/chibi.png" alt="Chibi" width="120">
+    <div class="progress"><div class="bar"></div></div>
+  </div>
+
+  <!-- PASSWORD SCREEN -->
+  <div id="passwordScreen">
+    <h2>Enter the secret password 💕</h2>
+    <input type="password" id="pwInput" placeholder="Enter password...">
+    <button onclick="checkPassword()">Enter</button>
+  </div>
+
+ <!-- HOME -->
+<div id="home">
+  <h1>Welcome AYAAAANGG 💖</h1>
+
+  <!-- AUDIO PLAYER -->
+  <div class="music-player">
+    <audio id="bgMusic" loop>
+      <source src="music/kazuha.mp3" type="audio/mpeg">
+    </audio>
+    <button id="playBtn" onclick="toggleMusic()">🎵 Play Music</button>
+  </div>
+
+  <div class="grid">
+    <div class="card" onclick="openModal(1)"><img src="img/photo1.jpeg" alt=""></div>
+    <div class="card" onclick="openModal(2)"><img src="img/photo2.jpeg" alt=""></div>
+    <div class="card locked"><img src="img/photo3.jpeg" alt=""></div>
+    <div class="card locked"><img src="img/photo4.jpeg" alt=""></div>
+  </div>
+</div>
+
+<!-- MODAL 1 -->
+<div class="modal" id="modal1">
+  <div class="modal-content">
+    <img src="img/chibi.png" alt="chibi">
+    <h3>Words for You 💕</h3>
+    <p>Keep going, gantengku. Even the wind rests when it sees you shine.</p>
+    <p>Remember: you’re doing amazing, and I’m proud of you.</p>
+    <p style="margin-top:10px; font-style:italic; color:#C15E5E;">
+      Mungkin ini ga mempan, tapi bisa diliat: aku mendedikasikan ini untukmu, tandanya aku ada di sini buat kamu 💖
+    </p>
+    <button class="close" onclick="closeModal(1)">Close</button>
+  </div>
+</div>
+
+
+  <!-- MODAL 2: MINI GAME -->
+  <div class="modal" id="modal2">
+  <div class="modal-content">
+    <h3>Mini Game 🎮</h3>
+    <canvas id="gameCanvas" width="400" height="200"></canvas>
+    <div id="score">Score: 0</div>
+    <button class="close" onclick="closeModal(2)">Close</button>
+  </div>
+</div>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
