@@ -1,10 +1,17 @@
 :root {
-  --soft-red: #E9B2B2;   /* merah lembut */
-  --accent-red: #C15E5E; /* merah tua khas Kazuha */
+  --soft-red: #E9B2B2;  
+  --accent-red: #C15E5E;
   --light: #FFF8F8;      /* putih-pink lembut */
   --dark: #2C2C2C;
   --white: #ffffff;
 }
+
+/* Spacer top seperti navbar */
+.top-spacer {
+  height: 60px; /* bisa diganti sesuai jarak yang diinginkan */
+  width: 100%;
+}
+
 
 /* GLOBAL */
 * {
@@ -16,12 +23,13 @@ html, body {
   margin: 0;
   padding: 0;
   width: 100%;
-  overflow-x: hidden;
+  overflow-x: hidden; 
   font-family: 'Poppins', sans-serif;
   background-color: var(--soft-red);
   color: var(--dark);
   font-weight: 600;
 }
+
 
 /* LOADING */
 #loading {
@@ -100,43 +108,72 @@ html, body {
   background: #a94444;
 }
 
+/* Home Wrapper */
 #home {
   min-height: 100vh;
-  display: none; /* nanti JS ubah ke block */
+  display: flex;
   flex-direction: column;
-  justify-content: center; /* vertikal tengah */
-  align-items: center;    /* horizontal tengah */
+  justify-content: flex-start; /* ganti center jadi flex-start */
+  align-items: center;
   background: linear-gradient(180deg, #B8D8C2 0%, #E8F3EC 100%);
   overflow: hidden;
-  padding: 0 20px; /* cukup side padding */
-  gap: 30px; /* jarak antar konten */
+  padding: 100px 20px 20px 20px; /* top padding gede biar welcome turun */
+  gap: 30px;
   text-align: center;
   position: relative;
 }
 
-/* Welcome / Judul */
+/* Untuk layar kecil, tambah padding lebih */
+@media (max-width: 600px) {
+  #home {
+    padding: 150px 10px 20px 10px; /* top padding lebih besar biar di HP */
+  }
+}
+
+/* Wrapper untuk judul + grid */
+.home-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Judul */
 #home h1 {
   font-size: clamp(2rem, 5vw, 3rem);
   color: #ffffff;
   font-weight: 800;
   margin: 0;
-  text-shadow: none;
-  z-index: 1;
 }
 
-/* Music Button Modern */
+/* Grid Card: rapi di bawah judul */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 20px;
+  max-width: 600px;
+  width: 100%;
+  justify-items: center;
+}
+
+/* Music Player Horizontal */
 .music-player {
   display: flex;
   justify-content: center;
-  z-index: 1;
+  margin-top: 30px;  /* jarak atas dari grid */
+  width: 100%;
+  padding: 0 20px;   /* padding kiri-kanan supaya tidak nempel pinggir */
+  box-sizing: border-box;
 }
 
 .music-player button {
+  flex: 1;                 
+  max-width: 400px;         
   background: rgba(255,255,255,0.2);
   backdrop-filter: blur(8px);
-  color: #fff;
-  border: 2px solid #fff;
-  padding: 10px 25px;
+  color: #2C7A2C;          
+  border: 2px solid #2C7A2C;
+  padding: 12px 20px;
   border-radius: 50px;
   font-weight: 700;
   cursor: pointer;
@@ -145,16 +182,24 @@ html, body {
 }
 
 .music-player button:hover {
-  background: rgba(255,255,255,0.4);
+  background: rgba(44,122,44,0.2); 
   transform: scale(1.05);
-  border-color: #ffffffaa;
+  border-color: #2C7A2C;
+}
+
+.sub-text {
+  font-size: clamp(0.9rem, 3vw, 1.2rem);
+  color: #2C7A2C;
+  margin-top: 4px;
+  margin-bottom: 12px; 
+  font-weight: 600;
 }
 
 /* Grid Card */
 .grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(120px, 1fr));
-  gap: 20px;
+  gap: 15px;
   max-width: 400px;
   width: 100%;
   margin: 0 auto;
@@ -330,5 +375,94 @@ button.close:hover {
   }
   .card {
     border-radius: 15px;
+  }
+}
+
+/* GAME TEBAK GAMBAR */
+#game3Container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+#startGame3Btn {
+  padding: 10px 25px;
+  border-radius: 50px;
+  background: linear-gradient(45deg, #C15E5E, #E9B2B2);
+  border: none;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+#startGame3Btn:hover {
+  transform: scale(1.05);
+}
+
+#timer3 {
+  font-weight: 700;
+  color: var(--accent-red);
+  font-size: clamp(0.9rem, 3vw, 1.2rem);
+}
+
+#questionImage3 {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+#answerInput3 {
+  padding: 8px 12px;
+  border-radius: 15px;
+  border: 2px solid var(--accent-red);
+  text-align: center;
+  font-weight: 600;
+  font-size: 1rem;
+  width: 70%;
+  max-width: 250px;
+  transition: border-color 0.3s ease;
+}
+#answerInput3:focus {
+  outline: none;
+  border-color: #E9B2B2;
+}
+
+#submitAnswer3Btn {
+  padding: 8px 20px;
+  border-radius: 50px;
+  background: var(--accent-red);
+  color: #fff;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+#submitAnswer3Btn:hover {
+  background: #a94444;
+}
+
+/* Score Display */
+#score3 {
+  font-weight: 700;
+  color: var(--accent-red);
+  font-size: 1rem;
+  margin-top: 5px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  #questionImage3 {
+    width: 150px;
+    height: 150px;
+  }
+  #answerInput3 {
+    width: 80%;
+  }
+  #startGame3Btn, #submitAnswer3Btn {
+    padding: 8px 18px;
   }
 }

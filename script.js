@@ -33,7 +33,22 @@ function openModal(id) {
 
 function closeModal(id) {
   document.getElementById('modal' + id).style.display = 'none';
+
+   // Stop mini game 3
+  if(id === 3) {
+    clearInterval(timer3); // hentikan timer
+    questionImg3.style.display = 'none';
+    answerInput3.style.display = 'none';
+    submitBtn3.style.display = 'none';
+    startBtn3.style.display = 'block'; // reset tombol start
+    timerDiv3.innerText = "";
+    scoreDiv3.innerText = "Score: 0";
+    currentQ3 = 0;
+    score3 = 0;
+    answerInput3.value = "";
+  }
 }
+
 
 // ANIMASI DAUN
 window.addEventListener('load', () => {
@@ -195,7 +210,7 @@ function endGame() {
   const grid = document.getElementById("gameGrid");
   grid.innerHTML = "";
 
-  document.getElementById("score").innerText = "🎉 Score: 100";
+  //document.getElementById("score").innerText = "🎉 Score: 100";
   document.getElementById("timer").innerText = "";
 
   const rewardDiv = document.createElement("div");
@@ -232,4 +247,199 @@ function toggleMusic() {
     playBtn.textContent = "🎵 Play Music";
   }
   isPlaying = !isPlaying;
+}
+
+// ==== GAME 3 FINAL ====
+const startBtn3 = document.getElementById('startGame3Btn');
+const questionImg3 = document.getElementById('questionImage3');
+const answerInput3 = document.getElementById('answerInput3');
+const submitBtn3 = document.getElementById('submitAnswer3Btn');
+const timerDiv3 = document.getElementById('timer3');
+const scoreDiv3 = document.getElementById('score3');
+const container3 = document.getElementById("game3Container");
+
+let currentQ3 = 0;
+let score3 = 0;
+let timer3;
+let timeLeft3;
+let gameRunning3 = false;
+
+const questions3 = [
+  {img: "img/soal1.jpg", answer: "ayaka"},
+  {img: "img/soal2.jpg", answer: "nilou"},
+  {img: "img/soal3.jpg", answer: "keqing"},
+  {img: "img/soal4.jpg", answer: "ganyu"},
+  {img: "img/soal5.jpg", answer: "clorinde"},
+  {img: "img/soal6.jpg", answer: "navia"},
+  {img: "img/soal7.jpg", answer: "mualani"},
+  {img: "img/soal8.jpg", answer: "citlali"},
+  {img: "img/soal9.jpg", answer: "yae miko"},
+  {img: "img/soal10.jpg", answer: "xiangling"}
+];
+
+// RESET GAME SEBELUM MULAI
+function resetGame3(message) {
+  clearInterval(timer3);
+  gameRunning3 = false;
+
+  // hide elemen game
+  questionImg3.style.display = 'none';
+  answerInput3.style.display = 'none';
+  submitBtn3.style.display = 'none';
+  startBtn3.style.display = 'block';
+  timerDiv3.innerText = "";
+
+  // hapus reward lama kalau ada
+  const oldReward = document.getElementById("rewardDiv3");
+  if(oldReward) oldReward.remove();
+
+  // buat card di web kalau ada skor
+  if(score3 > 0){
+    const rewardCard = document.createElement("div");
+    rewardCard.id = "rewardDiv3";
+    rewardCard.style.border = "2px solid #C15E5E";
+    rewardCard.style.borderRadius = "12px";
+    rewardCard.style.padding = "15px";
+    rewardCard.style.marginTop = "15px";
+    rewardCard.style.textAlign = "center";
+    rewardCard.style.background = "#FFF8F8";
+    rewardCard.style.maxWidth = "250px";
+    rewardCard.style.marginInline = "auto";
+
+    const img = document.createElement("img");
+    img.src = "img/photo8.jpg"; 
+    img.style.width = "120px";
+    img.style.borderRadius = "10px";
+    img.style.marginBottom = "10px";
+
+    const text = document.createElement("p");
+    text.innerText = `YEYY SELAMAT KAKAK selesai dengan skor: ${score3}!\nHadiah spesial buat kakak Elan : `;
+    text.style.color = "#C15E5E";
+    text.style.fontWeight = "700";
+
+    rewardCard.appendChild(img);
+    rewardCard.appendChild(text);
+    container3.appendChild(rewardCard);
+  }
+
+  // reset skor & index
+  score3 = 0;
+  currentQ3 = 0;
+  answerInput3.value = "";
+  scoreDiv3.innerText = message || "Score: 0";
+}
+
+
+// MULAI GAME
+startBtn3.addEventListener('click', () => {
+  startBtn3.style.display = 'none';
+  questionImg3.style.display = 'block';
+  answerInput3.style.display = 'block';
+  submitBtn3.style.display = 'block';
+  scoreDiv3.innerText = `Score: 0`;
+  gameRunning3 = true;
+  currentQ3 = 0;
+  score3 = 0;
+  showQuestion3();
+});
+
+// TAMPILKAN SOAL
+function showQuestion3() {
+  if(!gameRunning3) return;
+
+  if(currentQ3 >= questions3.length){
+    gameEnd3();
+    return;
+  }
+
+  questionImg3.src = questions3[currentQ3].img;
+  answerInput3.value = "";
+  startTimer3();
+}
+
+// TIMER PER SOAL
+function startTimer3() {
+  clearInterval(timer3);
+  timeLeft3 = 5;
+  timerDiv3.innerText = `⏳ Time: ${timeLeft3}s`;
+
+  timer3 = setInterval(() => {
+    if(!gameRunning3) { clearInterval(timer3); return; }
+
+    timeLeft3--;
+    timerDiv3.innerText = `⏳ Time: ${timeLeft3}s`;
+
+    if(timeLeft3 <= 0){
+      clearInterval(timer3);
+      resetGame3("⏰ Waktu habis 😭 Klik ▶️ Play untuk ulang!");
+    }
+  }, 1000);
+}
+
+// SUBMIT JAWABAN
+submitBtn3.addEventListener('click', () => {
+  if(!gameRunning3) return;
+
+  clearInterval(timer3);
+  const answer = answerInput3.value.trim().toLowerCase();
+
+  if(answer === questions3[currentQ3].answer.toLowerCase()){
+    score3 += 10;
+    scoreDiv3.innerText = `Score: ${score3}`;
+    currentQ3++;
+    showQuestion3();
+  } else {
+    resetGame3("Jawaban salah 😭 Klik ▶️ Play untuk ulang!");
+  }
+});
+
+// GAME SELESAI → TAMPILKAN HADIAH + SKOR
+function gameEnd3() {
+  gameRunning3 = false;
+
+  // hide semua elemen game
+  questionImg3.style.display = 'none';
+  answerInput3.style.display = 'none';
+  submitBtn3.style.display = 'none';
+  timerDiv3.innerText = "";
+  startBtn3.style.display = 'none';
+
+  // hapus reward lama kalau ada
+  const oldReward = document.getElementById("rewardDiv3");
+  if(oldReward) oldReward.remove();
+
+  // buat reward baru
+  const rewardDiv = document.createElement("div");
+  rewardDiv.id = "rewardDiv3";
+  rewardDiv.style.textAlign = "center";
+  rewardDiv.style.marginTop = "10px";
+
+  const img = document.createElement("img");
+  img.src = "img/hadiah.jpg";
+  img.style.width = "150px";
+  img.style.borderRadius = "10px";
+  img.style.marginBottom = "10px";
+
+  const text = document.createElement("p");
+  text.innerText = "🎉 Yeay, kamu selesai! Hadiah spesial buat kamu 💕"; // ubah sesuai yang diinginkan
+  text.style.color = "#C15E5E";
+  text.style.fontWeight = "700";
+
+  // link hadiah
+  const link = document.createElement("a");
+  link.href = "https://example.com";
+  link.innerText = "Klik disini untuk hadiahmu!";
+  link.target = "_blank";
+  link.style.color = "#C15E5E";
+  link.style.fontWeight = "700";
+
+  rewardDiv.appendChild(img);
+  rewardDiv.appendChild(text);
+  rewardDiv.appendChild(link);
+
+  container3.appendChild(rewardDiv);
+
+  // reset score & currentQ untuk play lagi
+  score3 = 0;
+  currentQ3 = 0;
 }

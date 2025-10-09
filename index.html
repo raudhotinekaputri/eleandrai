@@ -16,28 +16,33 @@
 
   <!-- PASSWORD SCREEN -->
   <div id="passwordScreen">
-    <h2>Enter the secret password 💕</h2>
+    <h2>Enter the secret password </h2>
     <input type="password" id="pwInput" placeholder="Enter password...">
     <button onclick="checkPassword()">Enter</button>
   </div>
 
  <!-- HOME -->
 <div id="home">
-  <h1>Welcome AYAAAANGG 💖</h1>
+  <div class="top-spacer"></div> 
 
-  <!-- AUDIO PLAYER -->
+  <div class="home-content">
+    <h1>Welcome KK ELANDRA</h1>
+    <p class="sub-text">from THISTALIA</p>
+
+
+    <div class="grid">
+      <div class="card" onclick="openModal(1)"><img src="img/photo1.jpeg" alt=""></div>
+      <div class="card" onclick="openModal(2)"><img src="img/photo2.jpeg" alt=""></div>
+      <div class="card" onclick="openModal(3)"><img src="img/photo3.jpeg" alt=""></div>
+      <div class="card" onclick="openModal(4)"><img src="img/photo4.jpeg" alt=""></div>
+    </div>
+  </div>
+
   <div class="music-player">
     <audio id="bgMusic" loop>
       <source src="music/kazuha.mp3" type="audio/mpeg">
     </audio>
     <button id="playBtn" onclick="toggleMusic()">🎵 Play Music</button>
-  </div>
-
-  <div class="grid">
-    <div class="card" onclick="openModal(1)"><img src="img/photo1.jpeg" alt=""></div>
-    <div class="card" onclick="openModal(2)"><img src="img/photo2.jpeg" alt=""></div>
-    <div class="card locked"><img src="img/photo3.jpeg" alt=""></div>
-    <div class="card locked"><img src="img/photo4.jpeg" alt=""></div>
   </div>
 </div>
 
@@ -45,11 +50,11 @@
 <div class="modal" id="modal1">
   <div class="modal-content">
     <img src="img/chibi.png" alt="chibi">
-    <h3>Words for You 💕</h3>
-    <p>Keep going, gantengku. Even the wind rests when it sees you shine.</p>
-    <p>Remember: you’re doing amazing, and I’m proud of you.</p>
+    <h3>Words for KK Elandra</h3>
+    <p>Keep going, kk gantengku. Even the wind rests when it sees you shine.</p>
+    <p>Remember you’re doing amazing, and I’m proud of you.</p>
     <p style="margin-top:10px; font-style:italic; color:#C15E5E;">
-      Mungkin ini ga mempan, tapi bisa diliat: aku mendedikasikan ini untukmu, tandanya aku ada di sini buat kamu 💖
+      Mungkin ini ga mempan, tapi bisa diliat, aku mendedikasikan ini untuk kk, tandanya aku ada di sini buat kakakkk 💖
     </p>
     <button class="close" onclick="closeModal(1)">Close</button>
   </div>
@@ -63,6 +68,39 @@
     <canvas id="gameCanvas" width="400" height="200"></canvas>
     <div id="score">Score: 0</div>
     <button class="close" onclick="closeModal(2)">Close</button>
+  </div>
+</div>
+
+<!-- MODAL 3: GAME TEBAK GAMBAR -->
+<div class="modal" id="modal3">
+  <div class="modal-content">
+    <h3>Mini Game 2 🎮</h3>
+    <div id="game3Container">
+      <button id="startGame3Btn">▶️ Play</button>
+      <div id="timer3"></div>
+      <img id="questionImage3" src="" alt="Soal" style="display:none; width:200px; height:200px; margin: 10px 0;">
+      <input type="text" id="answerInput3" placeholder="Jawabanmu..." style="display:none;">
+      <button id="submitAnswer3Btn" style="display:none;">Submit</button>
+      <div id="score3">Score: 0</div>
+    </div>
+    <button class="close" onclick="closeModal(3)">Close</button>
+  </div>
+</div>
+
+<!-- MODAL 4: UCAPAN TERIMA KASIH -->
+<div class="modal" id="modal4">
+  <div class="modal-content">
+    <img src="img/photo5.jpeg" alt="Photo4">
+    <h3>Untuk KK ELANDRA </h3>
+    <p>Thankyou yaa udah nemenin akuu. I'm glad aku bisa spend waktu sama kakak. Thankyou for exists.
+      Terimakasih kakak udah milih buat bertahan sampai sejauh ini, i'm really really produ of you. Makasih
+      udah ngertiin Isa, you are the best person ever. HEHEHEHE. Isa minta maaf ya, Isa banyak salah ke kakak.
+      Bikin kakak jengkel, cerewet, bawel banget tapi kakak masih tahan. ISA SANGAT BERTERIMAKASIH SEKALIIII
+      Thankyou kk Elan. Bahagia selalu yaaaa.</p>
+    <p style="margin-top:10px; font-style:italic; color:#C15E5E;">
+     KK ELANDRA IS THE BESTTTT 💕
+    </p>
+    <button class="close" onclick="closeModal(4)">Close</button>
   </div>
 </div>
 
